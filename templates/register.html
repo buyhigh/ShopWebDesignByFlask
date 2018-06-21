@@ -1,0 +1,76 @@
+{% extends "basic.html" %}
+
+
+{% block status %}
+{% if session.logged_in %}
+<ul class="nav pull-right">
+  <li><a href="#" style="fontsize:20px">{{ session.username }}</a></li>
+  <li><a href="/profile">个人中心</a></li>
+  {% if session.shopsowner_group %}
+    <li><a href="/sellercenter">卖家中心</a></li>
+  {% endif %}
+  <li><a href="/signout">登出</a></li>
+  {% if session.member_group %}
+      <li><a href="/#"><span class="label">VIP</span></a></li>
+  {% endif %}
+</ul>
+{% else %}
+<ul class="nav pull-right">
+  <li><a href="/signin">登录</a></li>
+  <li><a href="/register">注册</a></li>
+</ul>
+{% endif %}
+{% endblock status %}
+
+
+{% block title %}
+<h1 style="text-align:center">{% block name %}{% endblock name %}Hi,{{ session.username }} 欢迎来到MySpace!</h1>
+{% endblock title %}
+
+
+{% block head %}
+{% endblock head %}
+
+
+{% block body %}
+    <div class="login-page">
+		<div class="title-info wow fadeInUp animated" data-wow-delay=".5s">
+		</div>
+		<div class="widget-shadow">
+			<div class="login-top wow fadeInUp animated" data-wow-delay=".7s">
+				<h4>欢迎在购物网站注册！<br> 请将你的账号信息填于下方  </h4>
+			</div >
+			<div class="login-body wow fadeInUp animated" data-wow-delay=".7s">
+				<form action="/addaccount" method="post">
+					<input id="name" type="text" class="user" name="username" placeholder="注册名称" onblur="checkout()" required="">
+					<input id="pass1" type="password" name="password" class="lock" placeholder="密码" onblur="checkout()">
+                    <input id="pass2" type="password" name="password" class="lock" placeholder="再确认一次密码" onblur="checkout()">
+					<input id="submit" type="submit" value="注册" disabled="true">
+
+                    <span id="error" style="display:none" class="label label-important">Invalid Input!</span>
+				</form>
+			</div>
+		</div>
+	</div>
+
+<script type="text/javascript">
+    function checkout() {
+        var name = document.getElementById('name');
+        var pass1 = document.getElementById('pass1');
+        var pass2 = document.getElementById('pass2');
+        if ((name.value.length = 0)||(pass1.value != pass2.value)||(pass1.value.length < 2)||(pass2.value.length < 2)||(name.value.length < 2)) {
+            document.getElementById("error").style.display = "";
+            document.getElementById("submit").disabled = "true";
+        } else {
+            document.getElementById("error").style.display = "none";
+            document.getElementById("submit").removeAttribute("disabled");
+        }
+    }
+</script>
+
+<script type="text/javascript">
+  document.body.onload = function() {
+    document.getElementById("li-register").className = "active"; 
+  }
+</script>
+{% endblock body %}

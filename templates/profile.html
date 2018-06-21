@@ -1,0 +1,212 @@
+{% extends "basic.html" %}
+
+{% block status %}
+{% if session.logged_in %}
+<ul class="nav pull-right">
+  <li><a href="#" style="fontsize:20px">{{ session.username }}</a></li>
+  <li><a href="/profile">个人中心</a></li>
+  {% if session.shopsowner_group %}
+    <li><a href="/sellercenter">卖家中心</a></li>
+  {% endif %}
+  <li><a href="/signout">登出</a></li>
+  {% if session.member_group %}
+      <li><a href="/#"><span class="label">VIP</span></a></li>
+  {% endif %}
+</ul>
+{% else %}
+<ul class="nav pull-right">
+  <li><a href="/signin">登录</a></li>
+  <li><a href="/register">注册</a></li>
+</ul>
+{% endif %}
+{% endblock status %}
+
+
+{% block title %}
+<h1 style="text-align:center">{% block name %}{% endblock name %}Hi,{{ session.username }}.!</h1>
+{% endblock title %}
+
+
+{% block head %}
+    <title>profile</title>
+    <!--<link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}" />-->
+{% endblock head %}
+
+{% block body %}
+<div class="container" id="main"">
+<div class="row c_center"><!--这里的row并没有css，这里c_center是文字居中的意思，row是bootstrap中的网格系统-->
+<div class="col-md-4" id="left_content"><!--col-md是中型设备-->
+<div  id="list" >
+<table class="table table-hover c_center">
+    <tr class="active">
+        <td><a href="/profile?showinfo=personinfo" ><span class="glyphicon glyphicon-list" > 查看个人信息</span></a></td>
+    </tr>
+    <tr>
+        <td><a href="/editprofile" ><span class="glyphicon glyphicon-list" > 修改个人信息</span></a></td>
+    </tr>
+    <tr>
+        <td><a href="/chargemoney" ><span class="glyphicon glyphicon-list" > 充值钱包</span></a></td>
+    </tr>
+    <tr>
+        <td><a href="/addmember" ><span class="glyphicon glyphicon-list" > 成为会员</span></a></td>
+    </tr>
+    <tr>
+        <td><a href="/profile?showinfo=buyinfo" ><span class="glyphicon glyphicon-list" > 我购买过的记录</span></a></td>
+    </tr>
+    <tr>
+        <td><a href="/profile?showinfo=confirmgoodsinfo" ><span class="glyphicon glyphicon-list" > 确认收货</span></a></td>
+    </tr>
+</table>
+</div>
+</div>
+<div class="col-md-1" id="center_content"></div>
+
+<div  class="col-md-5 " id="right_Content">
+    <br />
+    {% if showway == 'personinfo' %}
+    <ul class="list-group" style="text-align: left;width: 500px">
+        {% for userentry in userentries %}
+            <li class="list-group-item"><span class="glyphicon glyphicon-user">姓名:</span>     {{ userentry.username }}</li>
+            <li class="list-group-item"><span class="glyphicon glyphicon-user">性别:</span>     {{ userentry.sex }}</li>
+            <li class="list-group-item"><span class="glyphicon glyphicon-heart-empty">生日:</span>     {{ userentry.Birthday }}</li>
+            <li class="list-group-item"><span class="glyphicon glyphicon-home">个人邮箱:</span>     {{ userentry.email }}</li>
+            <li class="list-group-item"><span class="glyphicon glyphicon-home">派货地址:</span>     {{ userentry.address }}</li>
+            <li class="list-group-item"><span class="glyphicon glyphicon-credit-card">钱包余额:</span>     {{ userentry.balance }}元</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% if showway == 'buyinfo' %}
+    <div class="list-group" style="width: 500px;text-align: left;">
+        <a href="#" class="list-group-item active">
+            <h4 class="list-group-item-heading">
+                个人购买记录
+            </h4>
+        </a>
+        {% for k in range( curstartrange , curendrange ) %}
+            <a href="#" class="list-group-item" >
+                <h4 class="list-group-item-heading">
+                    来自{{ buyentries[k].buyer }}的购买:
+                </h4>
+                <p class="list-group-item-text">
+                    购买物品:{{buyentries[k].shopname}}   数量:{{buyentries[k].salenum}}   金额:{{buyentries[k].money}}<br>
+                    交易时间：{{buyentries[k].date_stamp}}
+                </p>
+            </a>
+        {% endfor %}
+    </div>
+    <div class="wl_page span6">
+        {% if pagemax == 1 or pagemax == 0 %}
+            共有<span>{{ total_buynum }}</span>条，分为<span>{{ pagemax }}</span>页，每页<span>5</span>条，当前显示第<span>{{ curpage }}</span>页
+        [<a disabled = "disabled">首页</a>]
+        [<a disabled = "disabled">上一页</a>]
+        [<a disabled = "disabled">下一页</a>]
+        [<a disabled = "disabled">末页</a>]
+        {% endif %}
+        {% if pagemax > 1 and curpage == 1 %}
+            共有<span>{{ total_buynum }}</span>条，分为<span>{{ pagemax }}</span>页，每页<span>5</span>条，当前显示第<span>{{ curpage }}</span>页
+            [<a disabled = "disabled">首页</a>]
+            [<a disabled = "disabled">上一页</a>]
+            [<a href="/profile?showinfo=buyinfo&curpage=nextpage">下一页</a>]
+            [<a href="/profile?showinfo=buyinfo&curpage={{ pagemax }}">末页</a>]
+        {% endif %}
+        {% if pagemax > 1 and curpage > 1 and curpage < pagemax %}
+            共有<span>{{ total_buynum }}</span>条，分为<span>{{ pagemax }}</span>页，每页<span>5</span>条，当前显示第<span>{{ curpage }}</span>页
+            [<a href="/profile?showinfo=buyinfo&curpage=1">首页</a>]
+            [<a href="/profile?showinfo=buyinfo&curpage=prevpage">上一页</a>]
+            [<a href="/profile?showinfo=buyinfo&curpage=nextpage">下一页</a>]
+            [<a href="/profile?showinfo=buyinfo&curpage={{ pagemax }}">末页</a>]
+        {% endif %}
+        {% if pagemax > 1 and curpage == pagemax %}
+            共有<span>{{ total_buynum }}</span>条，分为<span>{{ pagemax }}</span>页，每页<span>5</span>条，当前显示第<span>{{ curpage }}</span>页
+            [<a href="/profile?showinfo=buyinfo&curpage=1">首页</a>]
+            [<a href="/profile?showinfo=buyinfo&curpage=prevpage"">上一页</a>]
+            [<a disabled = "disabled">下一页</a>]
+            [<a disabled = "disabled">末页</a>]
+        {% endif %}
+    </div>
+    {% endif %}
+    {% if showway == 'confirmgoodsinfo' %}
+<div class="container" style="width: 500px">
+    <table class="table table-striped">
+  <caption>确认收货</caption>
+  <thead>
+    <tr>
+        <th>订单id</th>
+        <th>购买人</th>
+        <th>购买物品</th>
+        <th>购买个数</th>
+        <th>总金额</th>
+        <th>发货地址</th>
+        <th>提交时间</th>
+    </tr>
+  </thead>
+  <tbody >
+    {% for k in range( curstartrange , curendrange ) %}
+    <tr>
+        <td>{{ confirmentries[k].buyid }}</td>
+        <td>{{ confirmentries[k].buyer }}</td>
+        <td>{{ confirmentries[k].shopname }}</td>
+        <td>{{ confirmentries[k].salenum }}</td>
+        <td>{{ confirmentries[k].money }}</td>
+        <td>{{ confirmentries[k].address }}</td>
+        <td>{{ confirmentries[k].date_stamp }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="wl_page span6">
+        {% if pagemax == 1 or pagemax == 0 %}
+            共有<span>{{ total_confirmnum }}</span>条，分为<span>{{ pagemax }}</span>页，每页<span>5</span>条，当前显示第<span>{{ curpage }}</span>页
+        [<a disabled = "disabled">首页</a>]
+        [<a disabled = "disabled">上一页</a>]
+        [<a disabled = "disabled">下一页</a>]
+        [<a disabled = "disabled">末页</a>]
+        {% endif %}
+        {% if pagemax > 1 and curpage == 1 %}
+            共有<span>{{ total_confirmnum }}</span>条，分为<span>{{ pagemax }}</span>页，每页<span>5</span>条，当前显示第<span>{{ curpage }}</span>页
+            [<a disabled = "disabled">首页</a>]
+            [<a disabled = "disabled">上一页</a>]
+            [<a href="/profile?showinfo=confirmgoodsinfo&curpage=nextpage">下一页</a>]
+            [<a href="/profile?showinfo=confirmgoodsinfo&curpage={{ pagemax }}">末页</a>]
+        {% endif %}
+        {% if pagemax > 1 and curpage > 1 and curpage < pagemax %}
+            共有<span>{{ total_confirmnum }}</span>条，分为<span>{{ pagemax }}</span>页，每页<span>5</span>条，当前显示第<span>{{ curpage }}</span>页
+            [<a href="/profile?showinfo=confirmgoodsinfo&curpage=1">首页</a>]
+            [<a href="/profile?showinfo=confirmgoodsinfo&curpage=prevpage">上一页</a>]
+            [<a href="/profile?showinfo=confirmgoodsinfo&curpage=nextpage">下一页</a>]
+            [<a href="/profile?showinfo=confirmgoodsinfo&curpage={{ pagemax }}">末页</a>]
+        {% endif %}
+        {% if pagemax > 1 and curpage == pagemax %}
+            共有<span>{{ total_confirmnum }}</span>条，分为<span>{{ pagemax }}</span>页，每页<span>5</span>条，当前显示第<span>{{ curpage }}</span>页
+            [<a href="/profile?showinfo=confirmgoodsinfo&curpage=1">首页</a>]
+            [<a href="/profile?showinfo=confirmgoodsinfo&curpage=prevpage"">上一页</a>]
+            [<a disabled = "disabled">下一页</a>]
+            [<a disabled = "disabled">末页</a>]
+        {% endif %}
+    </div>
+    <form action="/confirmreceive" method="post" role="form">
+        <div class="form-group"">
+            <label for="name">选择列表</label>
+            <select class="form-control" name="selectname">
+                {% for confirmentry in confirmentries %}
+                <option>{{ confirmentry.buyid }}</option>
+                {% endfor %}
+            </select>
+            <div class="col-sm-offset-2 col-sm-10">
+			    <button type="submit" class="btn btn-default">提交审核</button>
+		    </div>
+        </div>
+    </form>
+{% endif %}
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+  document.body.onload = function() {
+    document.getElementById("li-contact").className = "active"; 
+	
+  }
+</script>
+{% endblock body %}
+

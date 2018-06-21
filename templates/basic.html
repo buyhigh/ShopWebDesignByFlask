@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/bootstrap-responsive.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='bootstrap3.3.7/css/bootstrap.css') }}">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='bootstrap3.3.7/css/bootstrap-theme.css') }}">
+
+    <!-- 网页模版的载入 -->
+    <!-- for-mobile-apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="" />
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false);
+            function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!--//for-mobile-apps -->
+    <!--Custom Theme files -->
+    <link href="{{ url_for('static', filename='web_template/css/bootstrap.css') }}" rel="stylesheet" type="text/css" media="all" />
+    <link href="{{ url_for('static', filename='web_template/css/style.css') }}" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='web_template/css/flexslider.css') }}" type="text/css" media="screen" />
+    <!--//Custom Theme files -->
+    <!--js-->
+    <script src="{{ url_for('static', filename='web_template/js/jquery-1.11.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='web_template/js/modernizr.custom.js') }}"></script>
+    <!--//js-->
+    <!--cart-->
+    <script src="{{ url_for('static', filename='web_template/js/simpleCart.min.js') }}"></script>
+    <!--cart-->
+    <!--web-fonts-->
+    <link href='https://fonts.googleapis.com/css?family=Raleway:400,100,100italic,200,200italic,300,400italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic' rel='stylesheet' type='text/css'><link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Pompiere' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Fascinate' rel='stylesheet' type='text/css'>
+    <!--web-fonts-->
+    <!--animation-effect-->
+    <link href="{{ url_for('static', filename='web_template/css/animate.min.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='web_template/js/wow.min.js') }}"></script>
+        <script>
+         new WOW().init();
+        </script>
+    <!--//animation-effect-->
+    <!--start-smooth-scrolling-->
+    <script type="text/javascript" src="{{ url_for('static', filename='web_template/js/move-top.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='web_template/js/easing.js') }}"></script>
+    <script type="text/javascript">
+            jQuery(document).ready(function($) {
+                $(".scroll").click(function(event){
+                    event.preventDefault();
+                    $('html,body').animate({scrollTop:$(this.hash).offset().top},1000);
+                });
+            });
+    </script>
+    <!--//end-smooth-scrolling-->
+
+    <title>MySpace</title>
+
+    <style type="text/css">
+      body {
+        background-image: url("{{ url_for('static', filename='img/bk.png') }}");
+        background-attachment: fixed;
+        background-position: right;
+      }
+      .shop {
+        width: 24%;
+        position: relative;
+        text-align: center;
+        display: inline-block;
+        vertical-align: top;
+      }
+      .shop > img {
+        margin-left: 0px;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        margin-right: 20px;
+        padding: 0px;
+        border-radius: 5px;
+        border: solid 1px #a9a9a9;
+      }
+    .wl_page{width:500px;margin:5px auto;text-align:center;}
+	.wl_page span{font-weight:bold;}
+    </style>
+  </head>
+
+  <body data-spy="scroll" data-target=".subnav" data-offset="50">
+	<!-- 设置字体相关 -->
+    <div class="header" style="margin-bottom: 30px;margin-top: 10px">
+		<div class="top-header navbar navbar-default"><!--header-one-->
+			<div class="container">
+				<div class="nav navbar-nav navbar-right  wow fadeInRight animated" data-wow-delay=".5s">
+					<p>
+                        {% block status %}
+                        <a href="/register">注册</a>   <a href="/signin">登陆</a></p>
+                        {% endblock status %}
+
+
+				</div>
+				<div class="nav navbar-nav navbar-right social-icons wow fadeInRight animated" data-wow-delay=".5s">
+					<ul>
+
+					</ul>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+		<div class="header-two navbar navbar-default"><!--header-two-->
+			<div class="container">
+				<div class="nav navbar-nav header-two-left">
+					<ul>
+						<li><i class="glyphicon glyphicon-earphone" aria-hidden="true"></i></li>
+					</ul>
+				</div>
+				<div class="nav navbar-nav logo wow zoomIn animated" data-wow-delay=".7s">
+					<h1><a href="index.html">购物 <b>商城</b><span class="tag">欢迎你的到来！ </span> </a></h1>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+		</div>
+		<div class="top-nav navbar navbar-default"><!--header-three-->
+			<div class="container">
+				<nav class="navbar" role="navigation">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+					<!--navbar-header-->
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" style="margin-left: 450px">
+						<ul class="nav navbar-nav top-nav-info">
+							<li><a href="/home" class="active">主页</a></li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">商品类别<b class="caret"></b></a>
+								<ul class="dropdown-menu multi-column multi-column1">
+									<div class="row">
+										<div class="col-sm-4 menu-grids menulist1">
+											<ul class="multi-column-dropdown ">
+												<li><a class="list" href="/shop?showcategory=all">所有</a></li>
+												<li><a class="list" href="/shop?showcategory=clothes">衣服</a></li>
+												<li><a class="list" href="/shop?showcategory=trousers">裤子</a></li>
+												<li><a class="list" href="/shop?showcategory=sweater">毛衣</a></li>
+												<li><a class="list" href="/shop?showcategory=books">书籍</a></li>
+											</ul>
+										</div>
+										<div class="clearfix"> </div>
+									</div>
+								</ul>
+							</li>
+							<li class="dropdown grid">
+								<a href="#" class="dropdown-toggle list1" data-toggle="dropdown">商品排序<b class="caret"></b></a>
+								<ul class="dropdown-menu multi-column multi-column2">
+									<div class="row">
+										<div class="col-sm-3 menu-grids">
+											<ul class="multi-column-dropdown">
+												<li><a class="list" href="/shop?sort=shopstar">按喜爱排序</a></li>
+												<li><a class="list" href="/shop?sort=shopname">按热度排序</a></li>
+												<li><a class="list" href="/shop?sort=shopprice">按价格排序</a></li>
+											</ul>
+										</div>
+										<div class="clearfix"> </div>
+									</div>
+								</ul>
+							</li>
+							<li><a href="/shopmanager">购物车</a></li>
+                            <li><a href="/contact">商业合作</a></li>
+						</ul>
+						<div class="clearfix"> </div>
+						<!--//navbar-collapse-->
+						<header class="cd-main-header">
+							<ul class="cd-header-buttons">
+								<li><a class="cd-search-trigger" href="#cd-search"> <span></span></a></li>
+							</ul> <!-- cd-header-buttons -->
+						</header>
+					</div>
+					<!--//navbar-header-->
+				</nav>
+				<div id="cd-search" class="cd-search">
+					<form action="/search" method="get">
+						<input type="text" name="tag" placeholder="搜索...">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <div class="container">
+    <!-- body block作用区域-->
+    {% block body %}
+    {% endblock body %}
+    </div>
+
+    <div class="container" style="overflow:hidden">
+        <div class="row">
+        <div class="col-sm-6 col-md-5">
+            <footer style="margin: 20px; margin-left: 50%"><p>© <a href="/about">CodeCompiler</a> 2018</p></footer>
+        </div>
+        <div class="col-sm-6 col-md-5">
+            <footer style="margin: 20px; margin-left: 50%">
+                <a href="/adminmanager"><span class="glyphicon glyphicon-edit" > 管理员后台</span></a></footer>
+        </div>
+    </div>
+
+        <div class="footer">
+		<div class="container">
+			<div class="footer-info">
+				<div class="col-md-4 footer-grids wow fadeInUp animated" data-wow-delay=".5s">
+					<h4 class="footer-logo"><a href="index.html">购物 <b>网站</b> </a></h4>
+					<footer style="margin: 20px; margin-left: 1%"><p>© <a href="/about">CodeCompiler</a> 2018</p></footer>
+				</div>
+				<div class="col-md-4 footer-grids wow fadeInUp animated" data-wow-delay=".7s">
+					<h3>关于我们</h3>
+					<ul>
+                        <li><a href="/about"><span class="glyphicon glyphicon-list" > 关于我们</span></a></li>
+					</ul>
+				</div>
+				<div class="col-md-4 footer-grids wow fadeInUp animated" data-wow-delay=".9s">
+					<h3>管理员</h3>
+                        <a href="/adminmanager"><span class="glyphicon glyphicon-edit" > 管理员后台</span></a>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+    <script src="{{ url_for('static', filename='web_template/js/main.js') }}"></script>
+	<!--//search jQuery-->
+	<!--smooth-scrolling-of-move-up-->
+	<script type="text/javascript">
+		$(document).ready(function() {
+
+			var defaults = {
+				containerID: 'toTop', // fading element id
+				containerHoverID: 'toTopHover', // fading element hover id
+				scrollSpeed: 1200,
+				easingType: 'linear'
+			};
+
+			$().UItoTop({ easingType: 'easeOutQuart' });
+
+		});
+	</script>
+    <script src="{{ url_for('static', filename='web_template/js/bootstrap.js') }}""js/bootstrap.js"></script>
+
+    <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap-transition.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap-alert.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap-modal.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap-dropdown.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap-scrollspy.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap-tab.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap-tooltip.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap-popover.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap-button.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap-collapse.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap-carousel.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap-typeahead.js') }}"></script>
+    <script src="{{ url_for('static', filename='bootstrap3.3.7/js/bootstrap.js') }}"></script>
+
+  </body>
+</html>
