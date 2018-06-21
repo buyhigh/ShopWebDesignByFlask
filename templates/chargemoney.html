@@ -1,0 +1,81 @@
+{% extends "basic.html" %}
+
+{% block status %}
+{% if session.logged_in %}
+<ul class="nav pull-right">
+  <li><a href="#" style="fontsize:20px">{{ session.username }}</a></li>
+  <li><a href="/profile">个人中心</a></li>
+  {% if session.shopsowner_group %}
+    <li><a href="/sellercenter">卖家中心</a></li>
+  {% endif %}
+  <li><a href="/signout">登出</a></li>
+  {% if session.member_group %}
+      <li><a href="/#"><span class="label">VIP</span></a></li>
+  {% endif %}
+</ul>
+{% else %}
+<ul class="nav pull-right">
+  <li><a href="/signin">登录</a></li>
+  <li><a href="/register">注册</a></li>
+</ul>
+{% endif %}
+{% endblock status %}
+
+
+{% block title %}
+<h1 style="text-align:center">{% block name %}{% endblock name %}Hi,{{ session.username }} 欢迎来到MySpace!</h1>
+{% endblock title %}
+
+
+{% block head %}
+
+{% endblock head %}
+
+
+{% block body %}
+    <hr>
+<div class="row" style="text-align:center">
+    <span class="label label-success">Tips: </span>&nbsp;充值界面,充值名必须与当前用户名字相同.
+</div>
+<div class="container">
+  <div style="padding: 20px 20px 10px;margin-left: 200px;margin-right: 300px">
+  	<!--onblur 当用户离开输入字段时对其进行验证                  placeholder 该提示会在输入字段为空时显示，并会在字段获得焦点时消失。：      -->
+    <form action="/addcharge" method="post" class="bs-example bs-example-form" role="form">
+        <div class="input-group">
+            <span class="input-group-addon">姓名</span>
+            <input id="name" class="form-control" name="chargename" onblur="checkout()" placeholder="username">
+        </div>
+        <br>
+        <div class="input-group">
+            <span class="input-group-addon">充值金额:</span>
+            <input id="charge" class="form-control" name="chargenum" onblur="checkout()" placeholder="charge">
+        </div>
+        <br>
+        <button id="submit" type="submit" class="btn btn-primary" disabled="true" style="margin-left: 200px;margin-right: 200px"><i class="icon-bookmark"></i> 提交</button>
+        <span id="error" style="display:none" class="label label-important">Invalid Input!</span>
+  </form>
+</div>
+</div>
+
+<script type="text/javascript">
+    function checkout() {
+        var name = document.getElementById('name');
+        var charge = document.getElementById('charge');
+        if ((name.value.length < 2)||(charge.value.length < 2)) {
+            document.getElementById("error").style.display = "";
+            document.getElementById("submit").disabled = "true";
+        } else {
+            document.getElementById("error").style.display = "none";
+            document.getElementById("submit").removeAttribute("disabled");
+        }
+    }
+</script>
+
+
+<script type="text/javascript">
+  document.body.onload = function() {
+    document.getElementById("li-register").className = "active"; 
+  }
+</script>
+{% endblock body %}
+

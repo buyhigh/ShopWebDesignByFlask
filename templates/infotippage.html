@@ -1,0 +1,193 @@
+<<<<<<< HEAD
+{% extends "basic.html" %}
+
+{% block status %}
+{% if session.logged_in %}
+<ul class="nav pull-right">
+  <li><a href="#" style="fontsize:20px">{{ session.username }}</a></li>
+  <li><a href="/profile">个人中心</a></li>
+  {% if session.shopsowner_group %}
+    <li><a href="/sellercenter">卖家中心</a></li>
+  {% endif %}
+  <li><a href="/signout">登出</a></li>
+  {% if session.member_group %}
+      <li><a href="#"><span class="label">VIP</span></a></li>
+  {% endif %}
+</ul>
+{% else %}
+<ul class="nav pull-right">
+  <li><a href="/signin">登录</a></li>
+  <li><a href="/register">注册</a></li>
+</ul>
+{% endif %}
+{% endblock status %}
+
+
+{% block title %}
+<h1 style="text-align:center">{% block name %}{% endblock name %}Hi,{{ session.username }} 欢迎来到MySpace!</h1>
+{% endblock title %}
+
+
+{% block head %}
+    <title>信息提示页</title>
+{% endblock head %}
+
+{% block body %}
+<hr>
+<div class="row" style="text-align:center">
+    {% if showinfotip == 'saveprofile' %}
+        <h2>你的个人信息已经修改成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'addmessage_yes' %}
+        <h2>添加留言成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'adminmanager_no' %}
+        <h2>进入管理员后台失败，非管理员。</h2>
+    {% endif %}
+    {% if showinfotip == 'createnewshop_yes' %}
+        <h2>创建商品成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'addcharge_no' %}
+        <h2>不存在该用户，请确认充值用户名。</h2>
+    {% endif %}
+    {% if showinfotip == 'addcharge_yes' %}
+        <h2>充值成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'addaccount_yes' %}
+        <h2>账号注册成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'addmember_yes' %}
+        <h2>添加会员成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'checkout_cartless' %}
+        <h2>购物车为空。</h2>
+    {% endif %}
+    {% if showinfotip == 'checkout_yes' %}
+        <h2>你已经将购物车全部结算成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'checkout_moneyless' %}
+        <h2>你没有足够的钱结算购物车。</h2>
+    {% endif %}
+    {% if showinfotip == 'signin_yes' %}
+        <h2>登录成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'signout_yes' %}
+        <h2>登出成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'receive_yes' %}
+        <h2>确认收货成功，付款金额已经到商家。</h2>
+    {% endif %}
+    {% if showinfotip == 'receive_no' %}
+        <h2>确认收货失败，你的钱包并没有足够的钱。</h2>
+    {% endif %}
+    {% if showinfotip == 'deliver_yes' %}
+        <h2>已经发货成功，等待买家收货。</h2>
+    {% endif %}
+    {% if showinfotip == 'editcheapplace_yes' %}
+        <h2>修改特惠推荐位已经成功。</h2>
+    {% endif %}
+
+</div>
+<script type="text/javascript">
+  document.body.onload = function() {
+    document.getElementById("li-register").className = "active"; 
+  }
+</script>
+{% endblock body %}
+=======
+{% extends "basic.html" %}
+
+{% block status %}
+{% if session.logged_in %}
+<ul class="nav pull-right">
+  <li><a href="#" style="fontsize:20px">{{ session.username }}</a></li>
+  <li><a href="/profile">个人中心</a></li>
+  {% if session.shopsowner_group %}
+    <li><a href="/sellercenter">卖家中心</a></li>
+  {% endif %}
+  <li><a href="/signout">登出</a></li>
+  {% if session.member_group %}
+      <li><a href="#"><span class="label">VIP</span></a></li>
+  {% endif %}
+</ul>
+{% else %}
+<ul class="nav pull-right">
+  <li><a href="/signin">登录</a></li>
+  <li><a href="/register">注册</a></li>
+</ul>
+{% endif %}
+{% endblock status %}
+
+
+{% block title %}
+<h1 style="text-align:center">{% block name %}{% endblock name %}Hi,{{ session.username }} 欢迎来到MySpace!</h1>
+{% endblock title %}
+
+
+{% block head %}
+    <title>信息提示页</title>
+{% endblock head %}
+
+{% block body %}
+<hr>
+<div class="row" style="text-align:center">
+    {% if showinfotip == 'saveprofile' %}
+        <h2>你的个人信息已经修改成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'addmessage_yes' %}
+        <h2>添加留言成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'adminmanager_no' %}
+        <h2>进入管理员后台失败，非管理员。</h2>
+    {% endif %}
+    {% if showinfotip == 'createnewshop_yes' %}
+        <h2>创建商品成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'addcharge_no' %}
+        <h2>不存在该用户，请确认充值用户名。</h2>
+    {% endif %}
+    {% if showinfotip == 'addcharge_yes' %}
+        <h2>充值成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'addaccount_yes' %}
+        <h2>账号注册成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'addmember_yes' %}
+        <h2>添加会员成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'checkout_cartless' %}
+        <h2>购物车为空。</h2>
+    {% endif %}
+    {% if showinfotip == 'checkout_yes' %}
+        <h2>你已经将购物车全部结算成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'checkout_moneyless' %}
+        <h2>你没有足够的钱结算购物车。</h2>
+    {% endif %}
+    {% if showinfotip == 'signin_yes' %}
+        <h2>登录成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'signout_yes' %}
+        <h2>登出成功。</h2>
+    {% endif %}
+    {% if showinfotip == 'receive_yes' %}
+        <h2>确认收货成功，付款金额已经到商家。</h2>
+    {% endif %}
+    {% if showinfotip == 'receive_no' %}
+        <h2>确认收货失败，你的钱包并没有足够的钱。</h2>
+    {% endif %}
+    {% if showinfotip == 'deliver_yes' %}
+        <h2>已经发货成功，等待买家收货。</h2>
+    {% endif %}
+    {% if showinfotip == 'editcheapplace_yes' %}
+        <h2>修改特惠推荐位已经成功。</h2>
+    {% endif %}
+
+</div>
+<script type="text/javascript">
+  document.body.onload = function() {
+    document.getElementById("li-register").className = "active"; 
+  }
+</script>
+{% endblock body %}
+>>>>>>> 第一次提交

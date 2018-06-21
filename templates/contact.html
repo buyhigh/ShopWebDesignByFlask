@@ -1,0 +1,52 @@
+{% extends "basic.html" %}
+
+{% block status %}
+{% if session.logged_in %}
+<ul class="nav pull-right">
+  <li><a href="#" style="fontsize:20px">{{ session.username }}</a></li>
+  <li><a href="/profile">个人中心</a></li>
+  {% if session.shopsowner_group %}
+    <li><a href="/sellercenter">卖家中心</a></li>
+  {% endif %}
+  <li><a href="/signout">登出</a></li>
+  {% if session.member_group %}
+      <li><a href="/#"><span class="label">VIP</span></a></li>
+  {% endif %}
+</ul>
+{% else %}
+<ul class="nav pull-right">
+  <li><a href="/signin">登录</a></li>
+  <li><a href="/register">注册</a></li>
+</ul>
+{% endif %}
+{% endblock status %}
+
+
+{% block title %}
+<h1 style="text-align:center">{% block name %}{% endblock name %}Hi,{{ session.username }} 欢迎来到MySpace!</h1>
+{% endblock title %}
+
+
+{% block head %}
+
+{% endblock head %}
+
+{% block body %}
+    <hr>
+<div class="container">
+  <div id="newaccount" class="span12" style="text-aligh:center">
+    <p><span class="label">&nbsp;&nbsp;商业合作:&nbsp;&nbsp;</span>&nbsp;&nbsp;我们欢迎广大同学和我们进行合作:<br></p>
+    <p><span class="label label-success">&nbsp;&nbsp;合作类型:&nbsp;&nbsp;</span>&nbsp;&nbsp;你可以选择在本网站申请一个商铺，售卖你的商品。<br></p>
+    <p><span class="label label-inverse">&nbsp;&nbsp;联系方式:&nbsp;&nbsp;</span>&nbsp;&nbsp;请通过xxxxxxxxx@xxx.com给我们发邮件，或者点击下面的联系我们申请店铺。</p>
+  </div>
+</div>
+<div class="row" style="text-align:center">
+    <a href="/contact_me"><button class="btn" style="margin:3px"><i class="glyphicon glyphicon-file"></i> 联系我们.</button></a>
+</div>
+<hr>
+<script type="text/javascript">
+  document.body.onload = function() {
+    document.getElementById("li-contact").className = "active"; 
+  }
+</script>
+{% endblock body %}

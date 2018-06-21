@@ -1,0 +1,2 @@
+# ShopWebDesignByFlask
+使用Flask框架构建的购物网站

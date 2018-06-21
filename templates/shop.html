@@ -1,0 +1,121 @@
+{% extends "basic.html" %}
+{% block status %}
+{% if session.logged_in %}
+<ul class="nav pull-right">
+  <li><a href="#" style="fontsize:20px">{{ session.username }}</a></li>
+  <li><a href="/profile">个人中心</a></li>
+  {% if session.shopsowner_group %}
+    <li><a href="/sellercenter">卖家中心</a></li>
+  {% endif %}
+  <li><a href="/signout">登出</a></li>
+  {% if session.member_group %}
+      <li><a href="/#"><span class="label">VIP</span></a></li>
+  {% endif %}
+</ul>
+{% else %}
+<ul class="nav pull-right">
+  <li><a href="/signin">登录</a></li>
+  <li><a href="/register">注册</a></li>
+</ul>
+{% endif %}
+{% endblock status %}
+
+
+{% block name %}
+{% if session.logged_in %}
+Hi, <a href="#">{{ session.username }}.</a>
+{% endif %}
+{% endblock name %}
+
+{% block getshops %}
+{% if session.logged_in %}
+Hi, <a href="#"></a>
+{% endif %}
+{% endblock getshops %}
+
+{% block body %}
+<div class="container">
+  {% if search %}
+  <div class="alert alert-error">
+      <h3>The searching result for &nbsp;<span style="color:red">"{{ search }}"</span>&nbsp;...</h3>
+  </div>
+  {% endif %}
+</div>
+
+
+<div class="container">
+    <div class="row">
+    <div class="col-sm-6 col-md-2">
+    <table class="table table-hover c_center">
+    <tr>
+        <div class="btn-group" style="margin-left: 5px">
+	    <button type="button" class="btn btn-default dropdown-toggle"
+			data-toggle="dropdown"><span class="glyphicon glyphicon-list" > 所有商家一览 </span><span class="caret"></span>
+	    </button>
+        <ul class="dropdown-menu" role="menu">
+            {% for shopsentry in shopsentries %}
+            <li><a href="/entershops?shopsname={{ shopsentry.shopsname }}">{{ shopsentry.username }}的店</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    </tr>
+    <tr>
+        <td><a href="/shop?showcategory=all" ><span class="glyphicon glyphicon-list" > 所有商品</span></a></td>
+    </tr>
+    <tr>
+        <td><a href="/shop?showcategory=clothes" ><span class="glyphicon glyphicon-list" > 衣服</span></a></td>
+    </tr>
+    <tr>
+        <td><a href="/shop?showcategory=trousers" ><span class="glyphicon glyphicon-list" > 裤子</span></a></td>
+    </tr>
+    <tr>
+        <td><a href="/shop?showcategory=sweater" ><span class="glyphicon glyphicon-list" > 毛衣</span></a></td>
+    </tr>
+    <tr>
+        <td><a href="/shop?showcategory=books" ><span class="glyphicon glyphicon-list" > 书籍</span></a></td>
+    </tr>
+    </table>
+    </div>
+        <div class="col-sm-6 col-md-7">
+  <div class="span7" style="margin:0px;padding:0px">
+  
+    {% for entry in entries %}
+    <div class="shop">
+      <img src="{{ url_for('static', filename="img/book.png") }}" alt="{{ entry.shopname }}">
+      <a href="shopmessage?shopname={{ entry.shopname }}"><code style="fontsize:30px">{{ entry.shopname }}</code></a><br>
+      <span class="label label-important">
+        {% for i in entry.shopstar %}
+        <i class="icon-heart"></i>
+        {% endfor %}
+      </span><br>
+
+      <span class="label label-success">{{ entry.shopprice }} RMB</span>
+
+    </div>
+    {% endfor %}
+  </div>
+        </div>
+    <div class="col-sm-9 col-md-1">
+  <div class="span3">
+    <div class="well" style="opacity:.6;overflow:hidden;">
+        {%if session.logged_in %}
+        <h3 style="margin-left:5px">你的购物车为:&nbsp;
+          <span style="color:green">{% if session.total %}{{ session.total }}{% else %}0{% endif %}</span> 元<h3>
+        {% else %}
+        <h3 style="margin-left:5px">请 <a href="/signin">登录!</a></h3>
+        {% endif %}
+        <a href="/shopmanager"><img src="../static/img/shopcart.png" alt="shopcart" style="float:left"></a>
+        {%if session.logged_in %}
+        <a href="/shopmanager"><button class="btn" style="float: left"><i class="icon-shopping-cart"></i> Shopcart</button></a>
+        <a href="/checkout"><button class="btn" style="float: left;margin-top: 10px"><i class="icon-pencil"></i> Checkout</button></a>
+        {% endif %}
+    </div>
+  <div>
+</div>
+  </div>
+<script type="text/javascript">
+  document.body.onload = function() {
+    document.getElementById("li-shop").className = "active"; 
+  }
+</script>
+{% endblock body %}
